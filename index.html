@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HariHaran | Model-Based Developer & R&D Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060d14;
+    --bg2: #0a1520;
+    --bg3: #0f1e2e;
+    --cyan: #00e5ff;
+    --green: #00ff88;
+    --orange: #ff9f1c;
+    --purple: #a78bfa;
+    --teal: #2dd4bf;
+    --red: #ff6b6b;
+    --text: #c8d8e8;
+    --muted: #4a7090;
+    --border: #1a3050;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* PCB grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(circle, #1a3050 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Animated circuit lines */
+  .circuit-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .circuit-bg svg {
+    width: 100%; height: 100%;
+    opacity: 0.08;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(6,13,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+  }
+
+  .nav-logo span { color: var(--green); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 6vw 0;
+  }
+
+  .hero-content { max-width: 760px; }
+
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--green);
+    letter-spacing: 3px;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    letter-spacing: -1px;
+    margin-bottom: 0.4rem;
+  }
+
+  h1 span { color: var(--cyan); }
+
+  .hero-subtitle {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 500;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.8;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: left;
+  }
+
+  .stat-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.8rem;
+    color: var(--cyan);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.7rem 1.6rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: #060d14;
+    border: 1px solid var(--cyan);
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--cyan);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  /* Animated cursor line */
+  .cursor-blink {
+    display: inline-block;
+    width: 3px;
+    height: 1.1em;
+    background: var(--cyan);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 6vw;
+  }
+
+  .section-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--green);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3rem;
+    letter-spacing: 1px;
+  }
+
+  h2 .accent { color: var(--cyan); }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .skill-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan);
+    padding: 1.4rem 1.6rem;
+    border-radius: 2px;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    border-left: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+    opacity: 0.5;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-3px);
+    border-left-color: var(--green);
+  }
+
+  .skill-card.orange { border-left-color: var(--orange); }
+  .skill-card.orange:hover { border-left-color: var(--orange); }
+  .skill-card.purple { border-left-color: var(--purple); }
+  .skill-card.teal { border-left-color: var(--teal); }
+  .skill-card.red { border-left-color: var(--red); }
+
+  .skill-card-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-cyan { background: rgba(0,229,255,0.1); color: var(--cyan); border: 1px solid rgba(0,229,255,0.2); }
+  .tag-green { background: rgba(0,255,136,0.1); color: var(--green); border: 1px solid rgba(0,255,136,0.2); }
+  .tag-orange { background: rgba(255,159,28,0.1); color: var(--orange); border: 1px solid rgba(255,159,28,0.2); }
+  .tag-purple { background: rgba(167,139,250,0.1); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+  .tag-teal { background: rgba(45,212,191,0.1); color: var(--teal); border: 1px solid rgba(45,212,191,0.2); }
+
+  /* ── EXPERIENCE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--cyan), var(--border));
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -0.4rem;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--cyan);
+  }
+
+  .timeline-date {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-role {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.15rem;
+  }
+
+  .timeline-company {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--green);
+    margin-bottom: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .timeline-desc {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.75;
+    opacity: 0.8;
+    max-width: 680px;
+  }
+
+  .timeline-desc li {
+    margin-bottom: 0.3rem;
+    padding-left: 1rem;
+    position: relative;
+    list-style: none;
+  }
+
+  .timeline-desc li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-size: 0.7rem;
+  }
+
+  /* ── PROJECT ── */
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--cyan), var(--green), var(--purple));
+  }
+
+  .project-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+
+  .project-subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--green);
+    letter-spacing: 2px;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-arch {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .arch-node {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    border-radius: 2px;
+    text-align: center;
+  }
+
+  .arch-node-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--cyan);
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+  }
+
+  .arch-node-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .arch-node-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* ── ACCOMPLISHMENTS ── */
+  .accomplishments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .accomplishment-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    border-radius: 2px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .accomplishment-card:hover { border-color: var(--cyan); }
+
+  .acc-icon {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--cyan);
+    min-width: 2rem;
+    text-align: center;
+  }
+
+  .acc-text {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 1.2rem 1.4rem;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s;
+    text-decoration: none;
+  }
+
+  .contact-item:hover { border-color: var(--cyan); }
+
+  .contact-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-cyan { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+  .dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .dot-blue { background: #0077b5; }
+  .dot-gray { background: #888; }
+  .dot-red { background: var(--red); box-shadow: 0 0 6px var(--red); }
+
+  .contact-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .contact-value {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text);
+  }
+
+  /* ── FREELANCE BANNER ── */
+  .freelance-banner {
+    background: linear-gradient(135deg, rgba(0,229,255,0.06), rgba(0,255,136,0.06));
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 4px;
+    padding: 2rem 2.5rem;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .banner-text h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.3rem;
+  }
+
+  .banner-text p {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Scan line */
+  @keyframes scan {
+    0% { top: -4px; }
+    100% { top: 100%; }
+  }
+
+  .scan-line {
+    position: fixed;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(0,229,255,0.15), transparent);
+    pointer-events: none;
+    z-index: 999;
+    animation: scan 8s linear infinite;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 5vw; }
+    h1 { font-size: 2.8rem; }
+    .hero-stats { gap: 1.5rem; }
+    .freelance-banner { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scan-line"></div>
+
+<div class="circuit-bg">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#00e5ff" stroke-width="1" fill="none">
+      <path d="M0 200 L120 200 L120 160 L300 160 L300 200 L500 200"/>
+      <circle cx="120" cy="200" r="4" fill="#00e5ff"/>
+      <circle cx="300" cy="160" r="4" fill="#00e5ff"/>
+      <path d="M0 400 L80 400 L80 350 L180 350 L180 400 L320 400 L320 360 L500 360"/>
+      <circle cx="80" cy="400" r="4" fill="#00e5ff"/>
+      <circle cx="320" cy="360" r="4" fill="#00e5ff"/>
+      <path d="M1440 300 L1320 300 L1320 260 L1140 260 L1140 300 L960 300"/>
+      <circle cx="1320" cy="260" r="4" fill="#00ff88"/>
+      <path d="M1440 550 L1380 550 L1380 500 L1200 500 L1200 550 L1000 550"/>
+      <circle cx="1380" cy="500" r="4" fill="#00ff88"/>
+      <circle cx="1200" cy="550" r="4" fill="#00ff88"/>
+      <path d="M600 0 L600 80 L640 80 L640 200 L580 200 L580 320"/>
+      <circle cx="640" cy="80" r="4" fill="#a78bfa"/>
+      <path d="M900 0 L900 120 L860 120 L860 240 L920 240 L920 380"/>
+      <circle cx="860" cy="120" r="4" fill="#a78bfa"/>
+    </g>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HH<span>_</span>PORTFOLIO</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#project">Project</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="about">
+  <div class="hero-content">
+    <div class="hero-tag">ECE Engineer &bull; Tirunelveli, Tamil Nadu, India</div>
+    <h1>Hari<span>Haran</span><span class="cursor-blink"></span></h1>
+    <div class="hero-subtitle">Model-Based Developer &amp; R&amp;D Engineer</div>
+    <p class="hero-desc">
+      Electronics &amp; Communication Engineer with 3.8+ years of experience in RF &amp; Antenna Design, FPGA-based Signal Processing, Model-Based Design, and Federated Learning Security. Passionate about defense technologies, autonomous systems, and next-generation communication systems — delivering industrial-grade simulations and prototypes at freelance rates.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">3.8+</div>
+        <div class="stat-label">Years Exp.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1400+</div>
+        <div class="stat-label">UAV Flights</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Domains</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">B.E.</div>
+        <div class="stat-label">ECE</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary">Get In Touch</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag">Technical Arsenal</div>
+  <h2>Core <span class="accent">Skills</span></h2>
+  <div class="skills-grid">
+
+    <div class="skill-card fade-in">
+      <div class="skill-card-title">RF &amp; Antenna Design</div>
+      <div class="skill-tags">
+        <span class="tag tag-cyan">CST Studio Suite</span>
+        <span class="tag tag-cyan">Patch Antennas</span>
+        <span class="tag tag-cyan">Metamaterials</span>
+        <span class="tag tag-cyan">S11 Analysis</span>
+        <span class="tag tag-cyan">SAR</span>
+        <span class="tag tag-cyan">Radiation Pattern</span>
+        <span class="tag tag-cyan">Bandwidth Optimization</span>
+        <span class="tag tag-cyan">Altium</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in" style="border-left-color: var(--green);">
+      <div class="skill-card-title">Simulation &amp; Modeling</div>
+      <div class="skill-tags">
+        <span class="tag tag-green">MATLAB</span>
+        <span class="tag tag-green">Simulink</span>
+        <span class="tag tag-green">Stateflow</span>
+        <span class="tag tag-green">Simscape</span>
+        <span class="tag tag-green">MBD</span>
+        <span class="tag tag-green">Control Systems</span>
+        <span class="tag tag-green">Vehicle Dynamics</span>
+      </div>
+    </div>
+
+    <div class="skill-card orange fade-in">
+      <div class="skill-card-title">FPGA &amp; Signal Processing</div>
+      <div class="skill-tags">
+        <span class="tag tag-orange">Xilinx Vivado</span>
+        <span class="tag tag-orange">Artix-7</span>
+        <span class="tag tag-orange">Verilog</span>
+        <span class="tag tag-orange">RTL Design</span>
+        <span class="tag tag-orange">BRAM</span>
+        <span class="tag tag-orange">Convolution</span>
+        <span class="tag tag-orange">Checksums</span>
+      </div>
+    </div>
+
+    <div class="skill-card purple fade-in">
+      <div class="skill-card-title">Programming</div>
+      <div class="skill-tags">
+        <span class="tag tag-purple">Python</span>
+        <span class="tag tag-purple">C</span>
+        <span class="tag tag-purple">MATLAB Scripts</span>
+        <span class="tag tag-purple">Cryptography</span>
+        <span class="tag tag-purple">ML Security</span>
+      </div>
+    </div>
+
+    <div class="skill-card teal fade-in">
+      <div class="skill-card-title">Cloud &amp; Virtualization</div>
+      <div class="skill-tags">
+        <span class="tag tag-teal">AWS EC2</span>
+        <span class="tag tag-teal">AWS S3</span>
+        <span class="tag tag-teal">VPC</span>
+        <span class="tag tag-teal">VMware</span>
+        <span class="tag tag-teal">Ubuntu Linux</span>
+        <span class="tag tag-teal">Security Groups</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in" style="border-left-color: var(--red);">
+      <div class="skill-card-title">Networking &amp; Systems</div>
+      <div class="skill-tags">
+        <span class="tag tag-cyan">VLANs</span>
+        <span class="tag tag-cyan">STP/RSTP/MSTP</span>
+        <span class="tag tag-cyan">LACP</span>
+        <span class="tag tag-cyan">Trunking</span>
+        <span class="tag tag-cyan">IP Cameras</span>
+        <span class="tag tag-cyan">Wireshark</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-tag">Career Timeline</div>
+  <h2>Professional <span class="accent">Experience</span></h2>
+  <div class="timeline">
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">JULY 2025 — FEB 2026</div>
+      <div class="timeline-role">Programmer (R&amp;D)</div>
+      <div class="timeline-company">Panacorp Software Solutions — Kanyakumari</div>
+      <ul class="timeline-desc">
+        <li>Designed and simulated advanced patch antennas (rectangular, circular, slotted) using CST Studio Suite with metamaterial-based enhancements</li>
+        <li>Performed S11, SAR, far-field, radiation pattern, gain, directivity, resonance frequency, and bending analysis for RF optimization</li>
+        <li>Explored FPGA-based biomedical signal processing using Verilog on Artix-7; implemented buffers, checksums, convolution modules</li>
+        <li>Built VANET and dynamic vehicle intersection models using MATLAB for mobility and communication research</li>
+        <li>Leading federated learning security research on adversarial threat and poisoning attack detection in fog-based heterogeneous IoT systems</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">SEPT 2023 — MARCH 2025</div>
+      <div class="timeline-role">System Engineer (Defense R&amp;D)</div>
+      <div class="timeline-company">Pandian Security Agency — Client: Defence, Chennai</div>
+      <ul class="timeline-desc">
+        <li>Developed Model-Based Design frameworks using MATLAB/Simulink for rigid body dynamics and control system simulations</li>
+        <li>Implemented Euler, Runge-Kutta, DCM algorithms, and Kalman Filters for navigation and estimation models</li>
+        <li>Designed custom MATLAB GUIs, algorithms, and simulation workflows for defense client requirements</li>
+        <li>Supported simulation, verification, and analysis for mission-critical R&amp;D programs</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">OCT 2022 — JULY 2023</div>
+      <div class="timeline-role">Network &amp; System Engineer</div>
+      <div class="timeline-company">Plexonics Technologies Ltd — Chennai</div>
+      <ul class="timeline-desc">
+        <li>Configured L2/L3 switches, VLANs, STP/RSTP/MSTP, trunking, and LACP</li>
+        <li>Designed enterprise-grade network topologies and troubleshot using Wireshark</li>
+        <li>Deployed and maintained IP camera &amp; NVR systems</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">APR 2022 — AUG 2022</div>
+      <div class="timeline-role">Drone Pilot — Onsite Engineer</div>
+      <div class="timeline-company">Lesoko Technologies — Client: L&amp;T (230 MW Solar Plant)</div>
+      <ul class="timeline-desc">
+        <li>Conducted UAV surveying and thermal mapping for large-scale solar power plant erection</li>
+        <li>Executed 1400+ UAV flights ensuring operational safety and data accuracy</li>
+        <li>Troubleshot UAV hardware/software issues and coordinated with R&amp;D teams</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">OCT 2019 — MARCH 2020</div>
+      <div class="timeline-role">Quality Engineer</div>
+      <div class="timeline-company">BSA — Client: Sanmina, Sriperumbudur</div>
+      <ul class="timeline-desc">
+        <li>Performed PCBA inspection using IPC 600/610 G and ANSI ESD 20.20 standards</li>
+        <li>Worked on SMT, SPI, AOI, SPEA automated testers and customer complaint analysis</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- KEY PROJECT -->
+<section id="project">
+  <div class="section-tag">Featured Work</div>
+  <h2>Key <span class="accent">Project</span></h2>
+  <div class="project-card fade-in">
+    <div class="project-title">Fog-Based Federated Learning Framework</div>
+    <div class="project-subtitle">for Adversarial Threat Detection in Heterogeneous IoT Environments</div>
+    <div class="project-arch">
+      <div class="arch-node">
+        <div class="arch-node-label">System A</div>
+        <div class="arch-node-name">Fog Layer</div>
+        <div class="arch-node-desc">Aggregation &amp; Attack Detection</div>
+      </div>
+      <div class="arch-node">
+        <div class="arch-node-label">System B</div>
+        <div class="arch-node-name">IoT Client</div>
+        <div class="arch-node-desc">Benign Node</div>
+      </div>
+      <div class="arch-node">
+        <div class="arch-node-label">System C</div>
+        <div class="arch-node-name">Adversary</div>
+        <div class="arch-node-desc">Impersonator Node</div>
+      </div>
+    </div>
+    <div class="skill-tags" style="margin-bottom:1rem;">
+      <span class="tag tag-cyan">AWS EC2 + S3</span>
+      <span class="tag tag-green">VMware + Ubuntu</span>
+      <span class="tag tag-orange">PBKDF2HMAC Encryption</span>
+      <span class="tag tag-purple">Fernet Symmetric Crypto</span>
+      <span class="tag tag-teal">Gradient Poisoning Detection</span>
+      <span class="tag tag-cyan">Federated Learning</span>
+    </div>
+    <ul class="timeline-desc">
+      <li>Deployed AWS EC2 + S3 for initial FL pipeline testing and cloud integration</li>
+      <li>Built VMware + Ubuntu virtualization to simulate isolated heterogeneous clients</li>
+      <li>Implemented secure dataset encryption using Python cryptography (PBKDF2HMAC + Fernet)</li>
+      <li>Simulated gradient poisoning and impersonation attacks; developed fog-layer detection strategies</li>
+      <li>Explored centralized vs distributed federated learning strategies</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ACCOMPLISHMENTS -->
+<section>
+  <div class="section-tag">Highlights</div>
+  <h2>Key <span class="accent">Accomplishments</span></h2>
+  <div class="accomplishments-grid">
+    <div class="accomplishment-card fade-in">
+      <div class="acc-icon">&gt;_</div>
+      <div class="acc-text">Designed metamaterial-based slotted antennas achieving optimized bandwidth and gain using CST Studio Suite</div>
+    </div>
+    <div class="accomplishment-card fade-in">
+      <div class="acc-icon">#</div>
+      <div class="acc-text">Delivered defense-grade MBD simulations using advanced numerical methods for defence, Chennai</div>
+    </div>
+    <div class="accomplishment-card fade-in">
+      <div class="acc-icon">~</div>
+      <div class="acc-text">Completed 1400+ UAV missions for industrial inspection at L&amp;T's 230 MW Solar Power Plant</div>
+    </div>
+    <div class="accomplishment-card fade-in">
+      <div class="acc-icon">$</div>
+      <div class="acc-text">Built secure Federated ML security prototypes for fog-based heterogeneous IoT environments</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Reach Out</div>
+  <h2>Get In <span class="accent">Touch</span></h2>
+  <div class="contact-grid">
+    <a class="contact-item" href="mailto:haran0892@gmail.com">
+      <div class="contact-dot dot-cyan"></div>
+      <div>
+        <span class="contact-label">Email</span>
+        <span class="contact-value">haran0892@gmail.com</span>
+      </div>
+    </a>
+    <a class="contact-item" href="tel:+919952873121">
+      <div class="contact-dot dot-green"></div>
+      <div>
+        <span class="contact-label">Phone</span>
+        <span class="contact-value">+91 99528 73121</span>
+      </div>
+    </a>
+    <a class="contact-item" href="https://wa.me/919444869121" target="_blank">
+      <div class="contact-dot dot-green"></div>
+      <div>
+        <span class="contact-label">WhatsApp</span>
+        <span class="contact-value">+91 94448 69121</span>
+      </div>
+    </a>
+    <a class="contact-item" href="https://linkedin.com/in/hari-h-773205119" target="_blank">
+      <div class="contact-dot dot-blue"></div>
+      <div>
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value">hari-h-773205119</span>
+      </div>
+    </a>
+    <a class="contact-item" href="https://github.com/h-haran" target="_blank">
+      <div class="contact-dot dot-gray"></div>
+      <div>
+        <span class="contact-label">GitHub</span>
+        <span class="contact-value">github.com/h-haran</span>
+      </div>
+    </a>
+    <div class="contact-item">
+      <div class="contact-dot dot-red"></div>
+      <div>
+        <span class="contact-label">Location</span>
+        <span class="contact-value">Tirunelveli, Tamil Nadu</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="freelance-banner fade-in">
+    <div class="banner-text">
+      <h3>Available for Freelance Projects</h3>
+      <p>Industrial-grade simulations · Software modeling · Product prototypes · Minimum charge · Quick delivery</p>
+    </div>
+    <a href="mailto:haran0892@gmail.com" class="btn btn-primary">Hire Me</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2026 HariHaran — Model-Based Developer &amp; R&amp;D Engineer</div>
+  <div class="footer-text">Tirunelveli, Tamil Nadu, India</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
